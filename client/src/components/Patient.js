@@ -24,7 +24,7 @@ const Patient = ({ contract, account, provider }) => {
           headers: {
             pinata_api_key: `
             2b972864b60655f6ba99`,
-            pinata_secret_api_key: `cdbddad491b32fd63c7d8f0ef692779e751b66e4023a7a2e072f548b37de78fe`,
+            pinata_secret_api_key: `apikeycdbddad491b32fd63c7d`,
             "Content-Type": "multipart/form-data",
           },
         });
