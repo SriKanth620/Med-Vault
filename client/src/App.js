@@ -5,11 +5,15 @@ import Display from "./components/Display";
 import Modal from "./components/Modal";
 import "./App.css";
 import Doctor from "./components/Doctor";
+import Admin from "./components/Admin";
 import Patient from "./components/Patient";
 import Home from "./components/Home";
 import About from "./components/About";
 import { formToJSON } from "axios";
 import {Routes, Route} from "react-router-dom"
+import RegisterDoctor from "./components/RegisterDoctor";
+import RegisterHospital from "./components/RegisterHospital";
+import RegisterPatient from "./components/RegisterPatient";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -34,7 +38,7 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
         // let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-        let contractAddress = "0x0a178B6C440af9c473E9951e63De7ca28970C418";
+        let contractAddress = "0xBA510b23bdaab1227772cD66e3543752AC67458c";
 
         const contract = new ethers.Contract(
           contractAddress,
@@ -77,10 +81,15 @@ function App() {
       <div>
       
       <Routes>
-         <Route path="/" element={<Home/>}/>  
+        <Route path="/" element={<Home/>}/> 
+        <Route path="/admin" element={<Admin/>} />
         <Route path="/patient" element={<Patient account={account} provider={provider} contract={contract}></Patient>}/>
         <Route path="/Doctor" element={<Doctor account={account} provider={provider} contract={contract}></Doctor>}/>
+        <Route path="/admin/regpatient" element={<RegisterPatient account={account} provider={provider} contract={contract}></RegisterPatient>}/>
+        <Route path="/admin/regdoctor" element={<RegisterDoctor account={account} provider={provider} contract={contract}></RegisterDoctor>}/>
+        <Route path="/admin/reghospital" element={<RegisterHospital account={account} provider={provider} contract={contract}></RegisterHospital>}/>
       </Routes>
+      
       
       </div>
       </div>

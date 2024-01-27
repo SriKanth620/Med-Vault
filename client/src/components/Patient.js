@@ -29,17 +29,20 @@ const Patient = ({ contract, account, provider }) => {
           },
         });
         const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        contract.add(account,ImgHash);
-        alert("Successfully Image Uploaded");
-        setFileName("No image selected");
-        setFile(null);
+        contract.addRecords(account,ImgHash).then(()=>{
+          alert("Successfully Image Uploaded");
+          setFileName("No image selected");
+          setFile(null);
+        })
+        .catch((e)=>{
+          alert("You dont have an patient account");
+          console.log("Error: "+e);
+        })
+        
       } catch (e) {
         alert("Unable to upload image to Pinata");
       }
     }
-    alert("Successfully Image Uploaded");
-    setFileName("No image selected");
-    setFile(null);
   };
   const retrieveFile = (e) => {
     const data = e.target.files[0]; //files array of files object
@@ -54,7 +57,7 @@ const Patient = ({ contract, account, provider }) => {
   };
   useEffect(()=>{
     const requestList= async ()=>{
-      let list= await contract.displayRequestList();
+      let list= await contract.displayRequestList(account);
       let Container= document.getElementById("Request-Container");
       for(let i=0; i<list.length; i++){
       let para= document.createElement('p');
@@ -92,6 +95,23 @@ const Patient = ({ contract, account, provider }) => {
     };
     contract && requestList();
   },[contract])
+  useEffect(()=>{
+     const CheckPatient= async()=>{
+      console.log(account);
+      try{
+        await contract.checkPatient(account).then(()=>{
+          alert("Patient account detected");
+        })
+        .catch(()=>{
+          alert("You dont have an account")
+        }) 
+      }
+      catch(e){
+        alert("Try registered account " + e)
+      }
+     };
+     contract && CheckPatient();
+  },[contract])
   return (
     <div className="top">
       <div className="model-share">
@@ -125,6 +145,7 @@ const Patient = ({ contract, account, provider }) => {
         </button>
       </form>
       <DisplayPatientData contract={contract} account={account}></DisplayPatientData> <br/>
+      <h3>Pending Request</h3>
       <div id="Request-Container">
         
         {/* <div>

@@ -6,6 +6,9 @@ const Display = ({ contract, account }) => {
     let dataArray;
     const Otheraddress = document.querySelector(".address").value;
     try {
+      await contract.checkDoctor(account).catch((e)=>{
+        alert("You dont have an doctor account")
+      });
       if (Otheraddress) {
         dataArray = await contract.display(Otheraddress);
         console.log(dataArray);

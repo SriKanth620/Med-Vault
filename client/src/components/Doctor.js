@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import "./FileUpload.css";
 import Display from "./Display";
@@ -31,19 +31,19 @@ const Doctor = ({ contract, account, provider }) => {
             });
             const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
         
-            let res =contract.add(account1,ImgHash).then(() => {
+            let res =contract.addPatientRecords(account1,ImgHash).then(() => {
               // Success case
               alert("Successfully Image Uploaded");
             })
             .catch(() => {
               // Error case
-              alert("You dont have access ");
+              alert("You dont have access. Check Account ");
             })
             console.log(res);
             setFileName("No image selected");
             setFile(null);
           } catch (e) {
-            alert("Unable to upload image to Pinata");
+            alert("Unable to upload records. Check Account");
           }
       }
     } 
@@ -80,7 +80,23 @@ const Doctor = ({ contract, account, provider }) => {
       alert("Check react Error: "+ e);
     }
   };
-
+  useEffect(()=>{
+    const CheckDoctor= async()=>{
+     console.log(account);
+     try{
+       await contract.checkDoctor(account).then(()=>{
+         alert("Doctor account detected");
+       })
+       .catch(()=>{
+         alert("You dont have an doctor account")
+       }) 
+     }
+     catch(e){
+       alert("Try registered account " + e)
+     }
+    };
+    contract && CheckDoctor();
+ },[contract])
   return (
     <div className="top">
        <h1>Welcome back Doctor</h1>
