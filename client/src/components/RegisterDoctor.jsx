@@ -51,7 +51,7 @@ function RegisterDoctor({ contract, account, provider }) {
             })
         }
         catch(e){
-            alert("Check account "+ e);
+            alert("Check account. Error: "+ e);
         }
         
     }
