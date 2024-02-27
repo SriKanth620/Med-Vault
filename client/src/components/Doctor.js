@@ -24,8 +24,8 @@ const Doctor = ({ contract, account, provider }) => {
               data: formData,
               headers: {
                 pinata_api_key: `
-                2b972864b60655f6`,
-                pinata_secret_api_key: `paste api secret cdbddad491b3751b67de78fe`,
+                2b972864b60655f6ba99`,
+                pinata_secret_api_key: `cdbddad491b32fd63c7d8f0ef692779e751b66e4023a7a2e072f548b37de78fe`,
                 "Content-Type": "multipart/form-data",
               },
             });

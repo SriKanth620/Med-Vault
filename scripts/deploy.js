@@ -6,7 +6,13 @@ async function main() {
 
   await upload.deployed();
 
-  console.log("Library deployed to:", upload.address);
+  const Upload2 = await hre.ethers.getContractFactory("Upload2");
+  const upload2 = await Upload2.deploy();
+
+  await upload2.deployed();
+
+  console.log("Library1 deployed to:", upload.address);
+  console.log("Library2 deployed to:", upload2.address);
 }
 
 main().catch((error) => {

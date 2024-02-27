@@ -14,6 +14,7 @@ import {Routes, Route} from "react-router-dom"
 import RegisterDoctor from "./components/RegisterDoctor";
 import RegisterHospital from "./components/RegisterHospital";
 import RegisterPatient from "./components/RegisterPatient";
+import ParticlesBackground from "./components/ParticlesBackground";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -38,7 +39,7 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
         // let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-        let contractAddress = "0xBA510b23bdaab1227772cD66e3543752AC67458c";
+        let contractAddress = "0x15DEfB08Bd9e3F48144A901EACdd75C563aD9D40";
 
         const contract = new ethers.Contract(
           contractAddress,
@@ -56,29 +57,14 @@ function App() {
   }, []);
   return (
     <>
-     
-
-       <div className="App">
-       {/* <h1 style={{ color: "white" }}>Gdrive 3.0</h1>
-        <div class="bg"></div>
-        <div class="bg bg2"></div>
-        <div class="bg bg3"></div>
-
-        <p style={{ color: "white" }}>
-          Account : {account ? account : "Not connected"}
-        </p>
-        <Doctor
-          account={account}
-          provider={provider}
-          contract={contract}
-        ></Doctor>
-        <Display contract={contract} account={account}></Display>
-      </div> */}
+    <ParticlesBackground/>
+      <div className="App"> 
       <h1>Med S</h1>
       <p>
           Account : {account ? account : "Not connected"}
       </p>
       <div>
+      
       
       <Routes>
         <Route path="/" element={<Home/>}/> 
@@ -89,7 +75,6 @@ function App() {
         <Route path="/admin/regdoctor" element={<RegisterDoctor account={account} provider={provider} contract={contract}></RegisterDoctor>}/>
         <Route path="/admin/reghospital" element={<RegisterHospital account={account} provider={provider} contract={contract}></RegisterHospital>}/>
       </Routes>
-      
       
       </div>
       </div>

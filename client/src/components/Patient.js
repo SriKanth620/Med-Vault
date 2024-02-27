@@ -24,7 +24,7 @@ const Patient = ({ contract, account, provider }) => {
           headers: {
             pinata_api_key: `
             2b972864b60655f6ba99`,
-            pinata_secret_api_key: `apikeycdbddad491b32fd63c7d`,
+            pinata_secret_api_key: `cdbddad491b32fd63c7d8f0ef692779e751b66e4023a7a2e072f548b37de78fe`,
             "Content-Type": "multipart/form-data",
           },
         });
@@ -35,7 +35,7 @@ const Patient = ({ contract, account, provider }) => {
           setFile(null);
         })
         .catch((e)=>{
-          alert("You dont have an patient account");
+          alert("You don't have an patient account");
           console.log("Error: "+e);
         })
         
@@ -103,7 +103,7 @@ const Patient = ({ contract, account, provider }) => {
           alert("Patient account detected");
         })
         .catch(()=>{
-          alert("You dont have an account")
+          alert("You don't have an account")
         }) 
       }
       catch(e){
