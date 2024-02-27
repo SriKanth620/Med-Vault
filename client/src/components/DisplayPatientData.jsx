@@ -1,12 +1,13 @@
 import { useState } from "react";
 import "./Display.css";
+import "./FileUpload.css";
 const DisplayPatientData = ({ contract, account }) => {
   const [data, setData] = useState("");
   const getdata = async () => {
     let dataArray;
     // const Otheraddress = document.querySelector(".address").value;
     try {
-        dataArray = await contract.display(account);
+      dataArray = await contract.display(account);
     } catch (e) {
       alert("You don't have access");
     }
@@ -20,12 +21,7 @@ const DisplayPatientData = ({ contract, account }) => {
       const images = str_array.map((item, i) => {
         return (
           <a href={item} key={i} target="_blank">
-            <img
-              key={i}
-              src={item}
-              alt="new"
-              className="image-list"
-            ></img>
+            <img key={i} src={item} alt="new" className="image-list"></img>
           </a>
         );
       });
@@ -35,13 +31,14 @@ const DisplayPatientData = ({ contract, account }) => {
     }
   };
   return (
-    <>
+    <div className="retrieve-recs">
+      <h2 className="patient">Retrieve your Records</h2>
       <div className="image-list">{data}</div>
 
-      <button className="center button" onClick={getdata}>
+      <button className="center button recs" onClick={getdata}>
         Get Your Records
       </button>
-    </>
+    </div>
   );
 };
 export default DisplayPatientData;

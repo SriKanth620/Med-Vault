@@ -1,9 +1,11 @@
+// Library deployed to: 0x3D2bAEffe2d50C41215E5aA779E258247D2D5341
 require("@nomicfoundation/hardhat-toolbox");
-const PRIVATE_KEY="private key";
+const PRIVATE_KEY =
+  "7b122d4c4c7fa84d81101c6118d41cf7fb5f8eabac003b550fd3379d1d2437ee";
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.9",
- 
+
   networks: {
     // hardhat: {
     //   chainId: 1337,

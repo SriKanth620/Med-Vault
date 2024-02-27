@@ -1,5 +1,75 @@
 .top {
   margin: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.top > * {
+  margin: 1rem;
+  color: #faef5d;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form > * {
+  margin: 0.5rem;
+}
+
+.upper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.upper > * {
+  margin: 0px 4rem;
+}
+
+.upload-doc > input,
+.upload-doc > input:focus,
+.upload-doc > input:active,
+.get-doc > input,
+.get-doc > input:focus,
+.get-doc > input:active,
+.request-doc > .box,
+.request-doc > .box:focus,
+.request-doc > .box:active,
+.address,
+.address:focus,
+.address:active {
+  font-size: 1rem;
+  text-align: center;
+  width: 28vw;
+  line-height: 2;
+  box-shadow: none;
+  color: #faef5d;
+  background: transparent;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid #faef5d;
+}
+
+.get-doc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.get-doc > * {
+  margin: 1rem;
+}
+
+.get-doc > h2 {
+  margin-top: 0px;
 }
 
 input[type="file"] {
@@ -8,33 +78,52 @@ input[type="file"] {
 
 .choose {
   background-color: initial;
-  background-image: linear-gradient(-180deg, #5aff15, #00b712);
+  /* background-color: aqua; */
   border-radius: 6px;
   color: #ffffff;
   padding: 5px 10px;
   border-radius: 6px;
-  margin-right: 10px;
+  margin: 10px;
   padding-bottom: 10px;
+  color: #faef5d;
 }
-.choose:hover {
-  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+
+.patient {
+  font-size: 2rem;
+  font-weight: 300;
+  color: #faef5d;
 }
+
+.choose-img {
+  color: #faef5d;
+  cursor: pointer;
+  padding: 1rem;
+  border: 2px solid #faef5d;
+  border-radius: 50px;
+  transition: all 100ms ease-in-out;
+}
+
+.choose-img:hover {
+  box-shadow: 0px 3px #faef5d;
+  border: 2px solid #faef5d;
+}
+
 .textArea {
   color: white;
 }
 
 .upload {
-  border: 1px solid #13aa52;
-  background-color: #13aa52;
+  background-color: green;
+  border: none;
   color: #ffffff;
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-radius: 6px;
   margin-left: 10px;
 }
 
 .upload:hover {
-  border: 1px solid #13aa52;
-  background-color: #a5efc1;
+  background-color: #13aa52;
+  border: none;
   color: #ffffff;
   padding: 5px 10px;
 }
@@ -48,4 +137,31 @@ input[type="file"] {
 
 div {
   padding: 5px 10px;
+}
+
+/* .patient-box {
+  display: flex;
+  flex-direction: row;
+} */
+
+.first-box {
+  width: 100%;
+  margin: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.model-share,
+/* .patient-upload  */
+.retrieve-recs {
+  height: 35vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.share {
+  /* margin-top: 4rem; */
 }

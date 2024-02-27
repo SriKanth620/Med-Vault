@@ -9,7 +9,9 @@ import Patient from "./components/Patient";
 import Home from "./components/Home";
 import About from "./components/About";
 import { formToJSON } from "axios";
-import {Routes, Route} from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import ParticleBackground from "./components/ParticleBackground";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -34,7 +36,7 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
         // let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-        let contractAddress = "0x0a178B6C440af9c473E9951e63De7ca28970C418";
+        let contractAddress = "0xa066AFe5F7fceC1D90F5D555865E90937c2ED5FD";
 
         const contract = new ethers.Contract(
           contractAddress,
@@ -50,12 +52,12 @@ function App() {
     };
     provider && loadProvider();
   }, []);
+
   return (
     <>
-     
-
-       <div className="App">
-       {/* <h1 style={{ color: "white" }}>Gdrive 3.0</h1>
+      <div className="App">
+        {/* <ParticleBackground /> */}
+        {/* <h1 style={{ color: "white" }}>Gdrive 3.0</h1>
         <div class="bg"></div>
         <div class="bg bg2"></div>
         <div class="bg bg3"></div>
@@ -70,21 +72,44 @@ function App() {
         ></Doctor>
         <Display contract={contract} account={account}></Display>
       </div> */}
-      <h1>Med S</h1>
-      <p>
-          Account : {account ? account : "Not connected"}
-      </p>
-      <div>
-      
-      <Routes>
-         <Route path="/" element={<Home/>}/>  
-        <Route path="/patient" element={<Patient account={account} provider={provider} contract={contract}></Patient>}/>
-        <Route path="/Doctor" element={<Doctor account={account} provider={provider} contract={contract}></Doctor>}/>
-      </Routes>
-      
-      </div>
-      </div>
+        {/* <h1 className="logo">MedVault</h1> */}
 
+        <div>
+          <Navbar />
+          <p className="acc-add">
+            Account : {account ? account : "Not connected"}
+          </p>
+          <Routes>
+            <Route index element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
+            <Route
+              path="/patient"
+              element={
+                <Patient
+                  account={account}
+                  provider={provider}
+                  contract={contract}
+                ></Patient>
+              }
+            />
+            <Route
+              path="/Doctor"
+              element={
+                <Doctor
+                  account={account}
+                  provider={provider}
+                  contract={contract}
+                ></Doctor>
+              }
+            />
+          </Routes>
+          {/* <Home /> */}
+          {/* <p className="acc-add">
+            Account : {account ? account : "Not connected"}
+          </p> */}
+        </div>
+        {/* </ParticleBackground> */}
+      </div>
     </>
   );
 }

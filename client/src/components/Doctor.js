@@ -3,55 +3,54 @@ import axios from "axios";
 import "./FileUpload.css";
 import Display from "./Display";
 import { Link } from "react-router-dom";
-import "../App.css"
+import "../App.css";
 const Doctor = ({ contract, account, provider }) => {
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("No image selected");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let account1=document.getElementById("patient-id").value
+    let account1 = document.getElementById("patient-id").value;
     // alert("old: "+ account+ " new: "+ account1)
     try {
       // let res;
-        if (file) {
-          try {
-            const formData = new FormData();
-            formData.append("file", file);
-    
-            const resFile = await axios({
-              method: "post",
-              url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-              data: formData,
-              headers: {
-                pinata_api_key: `
-                2b972864b60655f6`,
-                pinata_secret_api_key: `paste api secret cdbddad491b3751b67de78fe`,
-                "Content-Type": "multipart/form-data",
-              },
-            });
-            const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        
-            let res =contract.add(account1,ImgHash).then(() => {
+      if (file) {
+        try {
+          const formData = new FormData();
+          formData.append("file", file);
+
+          const resFile = await axios({
+            method: "post",
+            url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
+            data: formData,
+            headers: {
+              pinata_api_key: `4475e8f9158d026a2366`,
+              pinata_secret_api_key: `a479fb1092f7d57d8ce509d59fbe04204e4f993787018e42942caaad0dbf4007`,
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+
+          let res = contract
+            .add(account1, ImgHash)
+            .then(() => {
               // Success case
               alert("Successfully Image Uploaded");
             })
             .catch(() => {
               // Error case
               alert("You dont have access ");
-            })
-            console.log(res);
-            setFileName("No image selected");
-            setFile(null);
-          } catch (e) {
-            alert("Unable to upload image to Pinata");
-          }
+            });
+          console.log(res);
+          setFileName("No image selected");
+          setFile(null);
+        } catch (e) {
+          alert("Unable to upload image to Pinata");
+        }
       }
-    } 
-    catch (e) {
-       alert(e);
-       console.log("over da");
+    } catch (e) {
+      alert(e);
+      console.log("over da");
     }
-    
   };
   const retrieveFile = (e) => {
     const data = e.target.files[0]; //files array of files object
@@ -64,54 +63,68 @@ const Doctor = ({ contract, account, provider }) => {
     setFileName(e.target.files[0].name);
     e.preventDefault();
   };
-  const HandleRequestSubmit= async (e)=>{
+  const HandleRequestSubmit = async (e) => {
     e.preventDefault();
-    let patient_address= document.getElementById("patient_address").value;
+    let patient_address = document.getElementById("patient_address").value;
     console.log(patient_address);
-    try{
-      await contract.requestToPatient(patient_address).then(()=>{
-        alert("Request Sent to "+ patient_address);
-      })
-      .catch(()=>{
-        alert("Unable to send the request");
-      })
-    }
-    catch(e){
-      alert("Check react Error: "+ e);
+    try {
+      await contract
+        .requestToPatient(patient_address)
+        .then(() => {
+          alert("Request Sent to " + patient_address);
+        })
+        .catch(() => {
+          alert("Unable to send the request");
+        });
+    } catch (e) {
+      alert("Check react Error: " + e);
     }
   };
 
   return (
     <div className="top">
-       <h1>Welcome back Doctor</h1>
-      <form className="form" onSubmit={handleSubmit}>
-      <label htmlFor="patient-file-upload" className="choose patient">
-          Choose patient
-        </label>
-        <input type="text" id="patient-id" name="id"/>
-        <label htmlFor="file-upload" className="choose">
-          Choose Image
-        </label>
-        <input
-          disabled={!account}
-          type="file"
-          id="file-upload"
-          name="data"
-          onChange={retrieveFile}
-        />
-        <span className="textArea"style={{color:"red"}}>Image: {fileName}</span>
-        <button type="submit" className="upload" disabled={!file}>
-          Upload File
-        </button>
+      <h1>Welcome back Doctor!</h1>
+      <div className="upper">
+        <form className="form upload-doc" onSubmit={handleSubmit}>
+          <div className="request-doc"></div>
+          <label htmlFor="patient-file-upload" className="choose patient">
+            Upload Patient Data
+          </label>
+          <input
+            placeholder="Enter patient Address"
+            type="text"
+            id="patient-id"
+            name="id"
+          />
+          <label htmlFor="file-upload" className="choose-img">
+            Choose Image
+          </label>
+          <input
+            disabled={!account}
+            type="file"
+            id="file-upload"
+            name="data"
+            onChange={retrieveFile}
+          />
+          <span className="textArea" style={{ color: "red" }}>
+            Image: {fileName}
+          </span>
+          <button type="submit" className="upload" disabled={!file}>
+            Upload File
+          </button>
+        </form>
+        {/* <div className="get-doc"></div> */}
+        <Display
+          className="get-doc"
+          contract={contract}
+          account={account}
+        ></Display>
+      </div>
+      <form className="request-doc" onSubmit={HandleRequestSubmit}>
+        <h3 className="patient">Request Access From Patient</h3>
+        <input className="box" type="text" id="patient_address" />
+        <input className="upload" type="submit" />
       </form>
-      <Display contract={contract} account={account}></Display>
-      <br/>
-      <h3>Request Access From Patient</h3>
-      <form onSubmit={HandleRequestSubmit}>
-        <input type="text" id="patient_address"/>
-        <input type="submit"/>
-      </form>
-      <Link to="/">Home</Link>
     </div>
   );
 };

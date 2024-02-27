@@ -15,19 +15,18 @@
 }
 
 .button {
-  background-color: initial;
-  background-image: linear-gradient(-180deg, #009ffd, #2a2a72);
-  border-radius: 6px;
+  background-color: green;
+  border: none;
   color: #ffffff;
   padding: 5px 10px;
-  border: none;
-  font-size: 16px;
-  border-radius: 5px;
-  margin-right: 10px;
-  padding-bottom: 10px;
+  border-radius: 6px;
 }
 .button:hover {
-  box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+  /* box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px; */
+  background-color: #13aa52;
+  border: none;
+  color: #ffffff;
+  padding: 5px 10px;
 }
 .address {
   display: block;
@@ -39,4 +38,8 @@
 
 input[type="text"]:focus {
   background-color: lightblue;
+}
+
+.recs {
+  color: #ffffff;
 }

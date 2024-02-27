@@ -5,9 +5,10 @@ import Modal from "./Modal";
 import "./Modal.css";
 import { Link } from "react-router-dom";
 import DisplayPatientData from "./DisplayPatientData";
+import "./FileUpload.css";
 const Patient = ({ contract, account, provider }) => {
   const [file, setFile] = useState(null);
-  const [reqlist, setReqlist]= useState([]);
+  const [reqlist, setReqlist] = useState([]);
   const [fileName, setFileName] = useState("No image selected");
   const [modalOpen, setModalOpen] = useState(false);
   const handleSubmit = async (e) => {
@@ -22,14 +23,13 @@ const Patient = ({ contract, account, provider }) => {
           url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
           data: formData,
           headers: {
-            pinata_api_key: `
-            2b972864b60655f6ba99`,
-            pinata_secret_api_key: `apikeycdbddad491b32fd63c7d`,
+            pinata_api_key: `4475e8f9158d026a2366`,
+            pinata_secret_api_key: `a479fb1092f7d57d8ce509d59fbe04204e4f993787018e42942caaad0dbf4007`,
             "Content-Type": "multipart/form-data",
           },
         });
         const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        contract.add(account,ImgHash);
+        contract.add(account, ImgHash);
         alert("Successfully Image Uploaded");
         setFileName("No image selected");
         setFile(null);
@@ -52,64 +52,80 @@ const Patient = ({ contract, account, provider }) => {
     setFileName(e.target.files[0].name);
     e.preventDefault();
   };
-  useEffect(()=>{
-    const requestList= async ()=>{
-      let list= await contract.displayRequestList();
-      let Container= document.getElementById("Request-Container");
-      for(let i=0; i<list.length; i++){
-      let para= document.createElement('p');
-      let div= document.createElement('div');
-      let accept= document.createElement('button');
-      let reject= document.createElement('button');
-      para.textContent=list[i];
+  useEffect(() => {
+    const requestList = async () => {
+      let list = await contract.displayRequestList();
+      let Container = document.getElementById("Request-Container");
+      for (let i = 0; i < list.length; i++) {
+        let para = document.createElement("p");
+        let div = document.createElement("div");
+        let accept = document.createElement("button");
+        let reject = document.createElement("button");
+        para.textContent = list[i];
 
-      accept.value="accept";
-      accept.textContent="accept";
-      reject.value="Reject";
-      reject.textContent="Reject";
-      accept.addEventListener("click", async ()=>{
-        await contract.requestAccept(list[i]).then(()=>{
-          alert("Permission Granted");
-        })
-        .catch(()=>{
-          alert("Permission Rejected")
-        })
-      })
-      reject.addEventListener("click", async ()=>{
-        await contract.requestReject(list[i]).then(()=>{
-          alert("Permission Rejected");
-        })
-        .catch(()=>{
-          alert("Permission Violeted")
-        })
-      })
-      Container.append(div);
-      div.append(para);
-      div.append(accept);
-      div.append(reject);
+        accept.value = "accept";
+        accept.textContent = "accept";
+        reject.value = "Reject";
+        reject.textContent = "Reject";
+        accept.addEventListener("click", async () => {
+          await contract
+            .requestAccept(list[i])
+            .then(() => {
+              alert("Permission Granted");
+            })
+            .catch(() => {
+              alert("Permission Rejected");
+            });
+        });
+        reject.addEventListener("click", async () => {
+          await contract
+            .requestReject(list[i])
+            .then(() => {
+              alert("Permission Rejected");
+            })
+            .catch(() => {
+              alert("Permission Violeted");
+            });
+        });
+        Container.append(div);
+        div.append(para);
+        div.append(accept);
+        div.append(reject);
       }
-
     };
     contract && requestList();
-  },[contract])
+  }, [contract]);
   return (
-    <div className="top">
-      <div className="model-share">
-     {!modalOpen && (
-        <button className="share" onClick={() => setModalOpen(true)}>
-          Share
-        </button>
-      )}
-      {modalOpen && (
-        <Modal setModalOpen={setModalOpen} contract={contract}></Modal>
-      )}
-     </div>
+    <div className="top patient-box">
       <h1>Welcome back Patient</h1>
-     
-     <br/>
-    
-      <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="file-upload" className="choose">
+      <div className="first-box">
+        <div className="model-share">
+          <h2 className="patient">Share your records</h2>
+          {!modalOpen && (
+            <button
+              className="share choose-img"
+              onClick={() => setModalOpen(true)}
+            >
+              Share
+            </button>
+          )}
+          {modalOpen && (
+            <Modal setModalOpen={setModalOpen} contract={contract}></Modal>
+          )}
+        </div>
+        <br />
+        <div>
+          <DisplayPatientData
+            contract={contract}
+            account={account}
+          ></DisplayPatientData>{" "}
+          <div id="Request-Container"></div>
+        </div>
+      </div>
+
+      <form className="form patient-upload" onSubmit={handleSubmit}>
+        <h2 className="patient">Upload your Records</h2>
+        <label htmlFor="file-upload" className="choose-img">
           Choose Image
         </label>
         <input
@@ -119,26 +135,13 @@ const Patient = ({ contract, account, provider }) => {
           name="data"
           onChange={retrieveFile}
         />
-        <span className="textArea" style={{color:"red"}}>Image: {fileName}</span>
+        <span className="textArea" style={{ color: "red" }}>
+          Image: {fileName}
+        </span>
         <button type="submit" className="upload" disabled={!file}>
           Upload File
         </button>
       </form>
-      <DisplayPatientData contract={contract} account={account}></DisplayPatientData> <br/>
-      <div id="Request-Container">
-        
-        {/* <div>
-          <p>X81738173871873</p>
-          <button>Accept</button>
-          <button>Reject</button>
-        </div>
-        <div>
-          <p>X81738173871873</p>
-          <button>Accept</button>
-          <button>Reject</button>
-        </div> */}
-      </div>
-      <Link to="/">Home</Link>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Display.css";
+import "./FileUpload.css";
 const Display = ({ contract, account }) => {
   const [data, setData] = useState("");
   const getdata = async () => {
@@ -25,12 +26,7 @@ const Display = ({ contract, account }) => {
       const images = str_array.map((item, i) => {
         return (
           <a href={item} key={i} target="_blank">
-            <img
-              key={i}
-              src={item}
-              alt="new"
-              className="image-list"
-            ></img>
+            <img key={i} src={item} alt="new" className="image-list"></img>
           </a>
         );
       });
@@ -40,17 +36,18 @@ const Display = ({ contract, account }) => {
     }
   };
   return (
-    <>
-      <div className="image-list">{data}</div>
+    <div className="get-doc">
+      <h2 className="patient">Get Patients Data</h2>
       <input
         type="text"
-        placeholder="Enter Address"
+        placeholder="Enter patient Address"
         className="address"
       ></input>
+      <div className="image-list">{data}</div>
       <button className="center button" onClick={getdata}>
-        Get Patient Records
+        Get Records
       </button>
-    </>
+    </div>
   );
 };
 export default Display;
