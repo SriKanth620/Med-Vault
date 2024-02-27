@@ -1,6 +1,6 @@
 import React from 'react'
-
-function RegisterHospital({ contract, account, provider }) {
+import { Link } from 'react-router-dom';
+function RegisterHospital({ contract2, account, provider }) {
     const HandleSubmit= async(e)=>{
         e.preventDefault();
         console.log(account);
@@ -11,14 +11,15 @@ function RegisterHospital({ contract, account, provider }) {
         let hname= document.getElementById("hname").value;
         let hmobile= document.getElementById("hmobile").value;
         let haddress= document.getElementById("haddress").value;
-        let hrole="hospital";
+        // let hrole="hospital";
         // console.log(hname,hmobile,haddress,hrole);
         try{
-            await contract.registerHospital(hname,hmobile,haddress,hrole).then(()=>{
+            await contract2.registerHospital(hname,hmobile,haddress).then(()=>{
                 alert("Hospital account created")
             })
             .catch((e)=>{
-                alert("Unable to create an account. Check the account ")
+                alert("Unable to create an account. Check the account\nFor more info check console ")
+                console.log(e.data.message);
             })
         }
         catch(e){
@@ -32,15 +33,16 @@ function RegisterHospital({ contract, account, provider }) {
         <form onSubmit={HandleSubmit}>
             <input type="text" placeholder='Hospital Name' id="hname"/>
              <br />
-            <input type="number" placeholder='Hospital Mobile Number'id="hmobile"/>
+            <input type="text" placeholder='Hospital Mobile Number'id="hmobile"/>
             <br />
             <input type="text" placeholder='Hospital Address'id="haddress"/>
             <br />
             <br />
             <input type="submit" name="submit" id="reg-btn" />
         </form>
+        <Link to="/admin">Back to Admin panel</Link>
     </div>
   )
 }
 
-export default RegisterHospital
+export default RegisterHospital;

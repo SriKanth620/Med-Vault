@@ -5,15 +5,16 @@ import Modal from "./Modal";
 import "./Modal.css";
 import { Link } from "react-router-dom";
 import DisplayPatientData from "./DisplayPatientData";
-const Patient = ({ contract, account, provider }) => {
+const Patient = ({ contract1, contract2, account, provider }) => {
   const [file, setFile] = useState(null);
-  const [reqlist, setReqlist]= useState([]);
+  const [reqlist, setReqlist] = useState([]);
   const [fileName, setFileName] = useState("No image selected");
   const [modalOpen, setModalOpen] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
       try {
+        await contract2.checkPatient(account);
         const formData = new FormData();
         formData.append("file", file);
 
@@ -29,18 +30,21 @@ const Patient = ({ contract, account, provider }) => {
           },
         });
         const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
-        contract.addRecords(account,ImgHash).then(()=>{
-          alert("Successfully Image Uploaded");
-          setFileName("No image selected");
-          setFile(null);
-        })
-        .catch((e)=>{
-          alert("You don't have an patient account");
-          console.log("Error: "+e);
-        })
-        
+        contract1
+          .addRecords(account, ImgHash)
+          .then(() => {
+            alert("Successfully Image Uploaded");
+            setFileName("No image selected");
+            setFile(null);
+          })
+          .catch((e) => {
+            alert("You don't have an patient account");
+            console.log("Error: " + e);
+            console.log(e.data.message);
+          });
       } catch (e) {
-        alert("Unable to upload image to Pinata");
+        alert("Unable to upload image to Pinata\nFor more info see console");
+        console.log(e);
       }
     }
   };
@@ -55,79 +59,85 @@ const Patient = ({ contract, account, provider }) => {
     setFileName(e.target.files[0].name);
     e.preventDefault();
   };
-  useEffect(()=>{
-    const requestList= async ()=>{
-      let list= await contract.displayRequestList(account);
-      let Container= document.getElementById("Request-Container");
-      for(let i=0; i<list.length; i++){
-      let para= document.createElement('p');
-      let div= document.createElement('div');
-      let accept= document.createElement('button');
-      let reject= document.createElement('button');
-      para.textContent=list[i];
+  useEffect(() => {
+    const requestList = async () => {
+      let list = await contract1.displayRequestList(account);
+      let Container = document.getElementById("Request-Container");
+      for (let i = 0; i < list.length; i++) {
+        let para = document.createElement("p");
+        let div = document.createElement("div");
+        let accept = document.createElement("button");
+        let reject = document.createElement("button");
+        para.textContent = list[i];
 
-      accept.value="accept";
-      accept.textContent="accept";
-      reject.value="Reject";
-      reject.textContent="Reject";
-      accept.addEventListener("click", async ()=>{
-        await contract.requestAccept(list[i]).then(()=>{
-          alert("Permission Granted");
-        })
-        .catch(()=>{
-          alert("Permission Rejected")
-        })
-      })
-      reject.addEventListener("click", async ()=>{
-        await contract.requestReject(list[i]).then(()=>{
-          alert("Permission Rejected");
-        })
-        .catch(()=>{
-          alert("Permission Violeted")
-        })
-      })
-      Container.append(div);
-      div.append(para);
-      div.append(accept);
-      div.append(reject);
+        accept.value = "accept";
+        accept.textContent = "accept";
+        reject.value = "Reject";
+        reject.textContent = "Reject";
+        accept.addEventListener("click", async () => {
+          await contract1
+            .requestAccept(list[i])
+            .then(() => {
+              alert("Permission Granted");
+            })
+            .catch(() => {
+              alert("Permission Rejected");
+            });
+        });
+        reject.addEventListener("click", async () => {
+          await contract1
+            .requestReject(list[i])
+            .then(() => {
+              alert("Permission Rejected");
+            })
+            .catch(() => {
+              alert("Permission Violated");
+            });
+        });
+        Container.append(div);
+        div.append(para);
+        div.append(accept);
+        div.append(reject);
       }
-
     };
-    contract && requestList();
-  },[contract])
-  useEffect(()=>{
-     const CheckPatient= async()=>{
+    contract1 && requestList();
+  }, [contract1]);
+  useEffect(() => {
+    const CheckPatient = async () => {
       console.log(account);
-      try{
-        await contract.checkPatient(account).then(()=>{
-          alert("Patient account detected");
-        })
-        .catch(()=>{
-          alert("You don't have an account")
-        }) 
+      try {
+        await contract2
+          .checkPatient(account)
+          .then(() => {
+            alert("Patient account detected");
+          })
+          .catch(() => {
+            alert("You don't have an account");
+          });
+      } catch (e) {
+        alert("Try registered account " + e);
       }
-      catch(e){
-        alert("Try registered account " + e)
-      }
-     };
-     contract && CheckPatient();
-  },[contract])
+    };
+    contract2 && CheckPatient();
+  }, [contract2]);
   return (
     <div className="top">
       <div className="model-share">
-     {!modalOpen && (
-        <button className="share" onClick={() => setModalOpen(true)}>
-          Share
-        </button>
-      )}
-      {modalOpen && (
-        <Modal setModalOpen={setModalOpen} contract={contract}></Modal>
-      )}
-     </div>
+        {!modalOpen && (
+          <button className="share" onClick={() => setModalOpen(true)}>
+            Share
+          </button>
+        )}
+        {modalOpen && (
+          <Modal
+            setModalOpen={setModalOpen}
+            contract1={contract1}
+            contract2={contract2}
+          ></Modal>
+        )}
+      </div>
       <h1>Welcome back Patient</h1>
-     
-     <br/>
-    
+      <br />
       <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="choose">
           Choose Image
@@ -139,15 +149,21 @@ const Patient = ({ contract, account, provider }) => {
           name="data"
           onChange={retrieveFile}
         />
-        <span className="textArea" style={{color:"red"}}>Image: {fileName}</span>
+        <span className="textArea" style={{ color: "red" }}>
+          Image: {fileName}
+        </span>
         <button type="submit" className="upload" disabled={!file}>
           Upload File
         </button>
       </form>
-      <DisplayPatientData contract={contract} account={account}></DisplayPatientData> <br/>
+      <DisplayPatientData
+        contract1={contract1}
+        contract2={contract2}
+        account={account}
+      ></DisplayPatientData>{" "}
+      <br />
       <h3>Pending Request</h3>
       <div id="Request-Container">
-        
         {/* <div>
           <p>X81738173871873</p>
           <button>Accept</button>

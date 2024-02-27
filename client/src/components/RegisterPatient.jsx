@@ -1,6 +1,6 @@
 import React from 'react'
-
-function RegisterPatient({ contract, account, provider }) {
+import { Link } from 'react-router-dom';
+function RegisterPatient({ contract2, account, provider }) {
     const HandleSubmit= async(e)=>{
         e.preventDefault();
         console.log(account);
@@ -11,14 +11,15 @@ function RegisterPatient({ contract, account, provider }) {
         let pname= document.getElementById("pname").value;
         let pmobile= document.getElementById("pmobile").value;
         let paddress= document.getElementById("paddress").value;
-        let prole="patient";
+        // let prole="patient";
         // console.log(pname,pmobile,paddress,prole);
         try{
-            await contract.registerPatient(pname,pmobile,paddress,prole).then(()=>{
+            await contract2.registerPatient(pname,pmobile,paddress).then(()=>{
                 alert("Patient account created")
             })
             .catch((e)=>{
-                alert("Unable to create an account. Check the account ")
+                alert("Unable to create an account. Check the account:\nFor more info check console"  )
+                console.log(e.data.message);
             })
         }
         catch(e){
@@ -40,8 +41,9 @@ function RegisterPatient({ contract, account, provider }) {
             <br />
             <input type="submit" name="submit" id="reg-btn" />
         </form>
+        <Link to="/admin">Back to Admin panel</Link>
     </div>
   )
 }
 
-export default RegisterPatient
+export default RegisterPatient;

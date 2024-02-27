@@ -1,19 +1,21 @@
 import { useEffect } from "react";
 import "./Modal.css";
-const Modal = ({ setModalOpen, contract }) => {
+const Modal = ({ setModalOpen, contract1, contract2 }) => {
   const sharing = async () => {
     const address = document.querySelector(".address").value;
-    await contract.allow(address);
+  await contract2.checkDoctor(address).catch(() => {alert("Entered doctor is not available")});
+    await contract1.allow(address).catch(() => {alert("Cant allow")});
     setModalOpen(false);
   };
   const revoking = async () => {
     const address = document.querySelector(".address").value;
-    await contract.disallow(address);
+    await contract2.checkDoctor(address).catch(() => {alert("Entered doctor is not available")});
+    await contract1.disallow(address);
     setModalOpen(false);
   };
   useEffect(() => {
     const accessList = async () => {
-      const addressList = await contract.shareAccess();
+      const addressList = await contract1.shareAccess();
       let select = document.querySelector("#selectNumber");
       const options = addressList;
 
@@ -25,8 +27,8 @@ const Modal = ({ setModalOpen, contract }) => {
         select.appendChild(e1);
       }
     };
-    contract && accessList();
-  }, [contract]);
+    contract1 && accessList();
+  }, [contract1]);
   return (
     <>
       <div className="modalBackground">

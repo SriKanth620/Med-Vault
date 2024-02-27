@@ -1,13 +1,13 @@
 import React, { useEffect,useState } from 'react'
-
-function RegisterDoctor({ contract, account, provider }) {
+import { Link } from 'react-router-dom';
+function RegisterDoctor({ contract2, account, provider }) {
     let hospitals;
     let data=[];
     // const [hospitalList, setHospitalList] = useState([]);
     useEffect(()=>{
         const FetchHospitals= async()=>{
             try{
-                 hospitals = await contract.displayHospital();
+                 hospitals = await contract2.displayHospital();
                     alert("Hospitals fetched");
                     let select= document.getElementById("hospital list");
                     for(let i=0; i<hospitals.length;i++){
@@ -26,8 +26,8 @@ function RegisterDoctor({ contract, account, provider }) {
 
             
         };
-    contract && FetchHospitals();
-    },[contract])
+    contract2 && FetchHospitals();
+    },[contract2])
     const HandleSubmit= async(e)=>{
         e.preventDefault();
         console.log(account);
@@ -40,14 +40,15 @@ function RegisterDoctor({ contract, account, provider }) {
         let daddress= document.getElementById("daddress").value;
         let ddesg= document.getElementById("ddesg").value;
         let hdaddress= document.getElementById("hospital list").value;
-        let drole="doctor";
-        console.log(dname,dmobile,daddress,drole, ddesg, hdaddress);
+        // let drole="doctor";
+        console.log(dname,dmobile,daddress, ddesg, hdaddress);
         try{
-            await contract.registerDoctor(dname,dmobile,daddress,drole,ddesg,hdaddress).then(()=>{
+            await contract2.registerDoctor(dname,dmobile,daddress,ddesg,hdaddress).then(()=>{
                 alert("Doctor account created")
             })
             .catch((e)=>{
-                alert("Unable to create an account. Check the account ")
+                alert("Unable to create an account. Check the account\nFor more info check console ")
+                console.log(e.data.message);
             })
         }
         catch(e){
@@ -75,8 +76,9 @@ function RegisterDoctor({ contract, account, provider }) {
             <br />
             <input type="submit" name="submit" id="reg-btn" />
         </form>
+        <Link to="/admin">Back to Admin panel</Link>
     </div>
   )
 }
 
-export default RegisterDoctor
+export default RegisterDoctor;

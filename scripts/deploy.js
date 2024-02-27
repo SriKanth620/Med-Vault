@@ -1,18 +1,18 @@
 const hre = require("hardhat");
 
 async function main() {
-  const Upload = await hre.ethers.getContractFactory("Upload");
-  const upload = await Upload.deploy();
+  const Mycontract1 = await hre.ethers.getContractFactory("Mycontract1");
+  const mycontract1 = await Mycontract1.deploy();
 
-  await upload.deployed();
+  await mycontract1.deployed();
 
-  const Upload2 = await hre.ethers.getContractFactory("Upload2");
-  const upload2 = await Upload2.deploy();
+  const Mycontract2 = await hre.ethers.getContractFactory("Mycontract2");
+  const mycontract2 = await Mycontract2.deploy();
 
-  await upload2.deployed();
+  await mycontract2.deployed();
 
-  console.log("Library1 deployed to:", upload.address);
-  console.log("Library2 deployed to:", upload2.address);
+  console.log("Library1 deployed to:", mycontract1.address);
+  console.log("Library2 deployed to:", mycontract2.address);
 }
 
 main().catch((error) => {

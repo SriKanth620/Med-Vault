@@ -1,4 +1,6 @@
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
+import Mycontract1 from "./artifacts/contracts/Mycontract1.sol/Mycontract1.json";
+import Mycontract2 from "./artifacts/contracts/Mycontract2.sol/Mycontract2.json"
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import Display from "./components/Display";
@@ -10,7 +12,7 @@ import Patient from "./components/Patient";
 import Home from "./components/Home";
 import About from "./components/About";
 import { formToJSON } from "axios";
-import {Routes, Route} from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 import RegisterDoctor from "./components/RegisterDoctor";
 import RegisterHospital from "./components/RegisterHospital";
 import RegisterPatient from "./components/RegisterPatient";
@@ -18,67 +20,125 @@ import ParticlesBackground from "./components/ParticlesBackground";
 
 function App() {
   const [account, setAccount] = useState("");
-  const [contract, setContract] = useState(null);
+  const [contract1, setContract1] = useState(null);
+  const [contract2, setContract2] = useState(null);
   const [provider, setProvider] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-    const loadProvider = async () => {
-      if (provider) {
-        window.ethereum.on("chainChanged", () => {
-          window.location.reload();
-        });
-
-        window.ethereum.on("accountsChanged", () => {
-          window.location.reload();
-        });
+    const loadContracts = async () => {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
         setAccount(address);
-        // let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
-        let contractAddress = "0x15DEfB08Bd9e3F48144A901EACdd75C563aD9D40";
 
-        const contract = new ethers.Contract(
-          contractAddress,
-          Upload.abi,
+        const contractAddress1 = "0x0d72088AA7072dA1250C23a350b8c8d9d3A9240a";
+        const contractAddress2 = "0xA4a444a0a0FFf96F4F00Dcacc0E9b4467F09c612";
+
+        const contract1 = new ethers.Contract(
+          contractAddress1,
+          Mycontract1.abi,
           signer
         );
-        //console.log(contract);
-        setContract(contract);
-        setProvider(provider);
-      } else {
-        console.error("Metamask is not installed");
+        const contract2 = new ethers.Contract(
+          contractAddress2,
+          Mycontract2.abi,
+          signer
+        );
+
+        setContract1(contract1);
+        setContract2(contract2);
+      } catch (error) {
+        console.error("Error loading contracts:", error);
       }
     };
-    provider && loadProvider();
+
+    if (window.ethereum) {
+      loadContracts();
+    } else {
+      console.error("Metamask is not installed");
+    }
   }, []);
   return (
     <>
-    <ParticlesBackground/>
-      <div className="App"> 
-      <h1>Med S</h1>
-      <p>
-          Account : {account ? account : "Not connected"}
-      </p>
-      <div>
-      
-      
-      <Routes>
-        <Route path="/" element={<Home/>}/> 
-        <Route path="/admin" element={<Admin/>} />
-        <Route path="/patient" element={<Patient account={account} provider={provider} contract={contract}></Patient>}/>
-        <Route path="/Doctor" element={<Doctor account={account} provider={provider} contract={contract}></Doctor>}/>
-        <Route path="/admin/regpatient" element={<RegisterPatient account={account} provider={provider} contract={contract}></RegisterPatient>}/>
-        <Route path="/admin/regdoctor" element={<RegisterDoctor account={account} provider={provider} contract={contract}></RegisterDoctor>}/>
-        <Route path="/admin/reghospital" element={<RegisterHospital account={account} provider={provider} contract={contract}></RegisterHospital>}/>
-      </Routes>
-      
+      {/* <ParticlesBackground/> */}
+      <div className="App">
+        <h1>Med Vault</h1>
+        <p>Account : {account ? account : "Not connected"}</p>
+        <div>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  account={account}
+                  provider={provider}
+                  contract1={contract1}
+                  contract2={contract2}
+                ></Home>
+              }
+            />
+            <Route path="/admin" element={<Admin />} />
+            <Route
+              path="/patient"
+              element={
+                <Patient
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></Patient>
+              }
+            />
+            <Route
+              path="/Doctor"
+              element={
+                <Doctor
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></Doctor>
+              }
+            />
+            <Route
+              path="/admin/regpatient"
+              element={
+                <RegisterPatient
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></RegisterPatient>
+              }
+            />
+            <Route
+              path="/admin/regdoctor"
+              element={
+                <RegisterDoctor
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></RegisterDoctor>
+              }
+            />
+            <Route
+              path="/admin/reghospital"
+              element={
+                <RegisterHospital
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></RegisterHospital>
+              }
+            />
+          </Routes>
+        </div>
       </div>
-      </div>
-
     </>
   );
 }

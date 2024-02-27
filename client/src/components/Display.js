@@ -1,22 +1,21 @@
 import { useState } from "react";
 import "./Display.css";
-const Display = ({ contract, account }) => {
+const Display = ({ contract1, contract2, account }) => {
   const [data, setData] = useState("");
   const getdata = async () => {
     let dataArray;
     const Otheraddress = document.querySelector(".address").value;
     try {
-      await contract.checkDoctor(account).catch((e)=>{
-        alert("You dont have an doctor account")
-      });
+      await contract2.checkDoctor(account);
       if (Otheraddress) {
-        dataArray = await contract.display(Otheraddress);
+        dataArray = await contract1.display(Otheraddress);
         console.log(dataArray);
       } else {
-        dataArray = await contract.display(account);
+        dataArray = await contract1.display(account);
       }
     } catch (e) {
       alert("You don't have access");
+      console.log(e);
     }
     const isEmpty = Object.keys(dataArray).length === 0;
 
@@ -28,12 +27,7 @@ const Display = ({ contract, account }) => {
       const images = str_array.map((item, i) => {
         return (
           <a href={item} key={i} target="_blank">
-            <img
-              key={i}
-              src={item}
-              alt="new"
-              className="image-list"
-            ></img>
+            <img key={i} src={item} alt="new" className="image-list"></img>
           </a>
         );
       });
@@ -44,7 +38,7 @@ const Display = ({ contract, account }) => {
   };
   return (
     <>
-      <div className="image-list">{data}</div>
+    <br/>
       <input
         type="text"
         placeholder="Enter Address"
@@ -53,6 +47,7 @@ const Display = ({ contract, account }) => {
       <button className="center button" onClick={getdata}>
         Get Patient Records
       </button>
+      <div className="image-list">{data}</div>
     </>
   );
 };

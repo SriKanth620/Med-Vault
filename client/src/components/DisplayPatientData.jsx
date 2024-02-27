@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./Display.css";
-const DisplayPatientData = ({ contract, account }) => {
+const DisplayPatientData = ({ contract1, contract2, account }) => {
   const [data, setData] = useState("");
   const getdata = async () => {
     let dataArray;
     // const Otheraddress = document.querySelector(".address").value;
     try {
-        dataArray = await contract.display(account);
+        dataArray = await contract1.display(account);
     } catch (e) {
       alert("You don't have access");
     }
@@ -36,11 +36,11 @@ const DisplayPatientData = ({ contract, account }) => {
   };
   return (
     <>
-      <div className="image-list">{data}</div>
-
+      <br/>
       <button className="center button" onClick={getdata}>
         Get Your Records
       </button>
+      <div className="image-list">{data}</div>
     </>
   );
 };
