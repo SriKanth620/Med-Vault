@@ -1,8 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const Home = ({ contract1, contract2 }) => {
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    async function connectAndPromptMetaMask() {
+      if (window.ethereum) {
+        try {
+          // Prompt the user to connect MetaMask
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          console.log("MetaMask connected successfully");
+
+          // You can also trigger other actions here, such as signing a transaction
+          // await window.ethereum.request({ method: 'eth_sendTransaction', params: [...] });
+        } catch (error) {
+          console.error("Error connecting MetaMask:", error);
+        }
+      } else {
+        console.error("MetaMask is not installed");
+      }
+    }
+
+    // Delay the connection process by a few milliseconds to ensure it's triggered
+    setTimeout(connectAndPromptMetaMask, 100);
+  }, []);
+
 
   // const handleSubmit = async () => {
   //   try {

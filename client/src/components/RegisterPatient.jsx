@@ -16,6 +16,9 @@ function RegisterPatient({ contract2, account, provider }) {
         try{
             await contract2.registerPatient(pname,pmobile,paddress).then(()=>{
                 alert("Patient account created")
+                window.setTimeout(()=>{
+                    window.location.reload();
+                }, 3000)
             })
             .catch((e)=>{
                 alert("Unable to create an account. Check the account:\nFor more info check console"  )
@@ -25,7 +28,7 @@ function RegisterPatient({ contract2, account, provider }) {
         catch(e){
             alert("Check account "+ e);
         }
-        
+       
     }
   return (
     <div>

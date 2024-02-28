@@ -16,6 +16,9 @@ function RegisterHospital({ contract2, account, provider }) {
         try{
             await contract2.registerHospital(hname,hmobile,haddress).then(()=>{
                 alert("Hospital account created")
+                window.setTimeout(()=>{
+                    window.location.reload();
+                }, 3000)
             })
             .catch((e)=>{
                 alert("Unable to create an account. Check the account\nFor more info check console ")
@@ -33,7 +36,7 @@ function RegisterHospital({ contract2, account, provider }) {
         <form onSubmit={HandleSubmit}>
             <input type="text" placeholder='Hospital Name' id="hname"/>
              <br />
-            <input type="text" placeholder='Hospital Mobile Number'id="hmobile"/>
+            <input type="number" placeholder='Hospital Mobile Number'id="hmobile"/>
             <br />
             <input type="text" placeholder='Hospital Address'id="haddress"/>
             <br />

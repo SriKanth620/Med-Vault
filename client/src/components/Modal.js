@@ -5,12 +5,18 @@ const Modal = ({ setModalOpen, contract1, contract2 }) => {
     const address = document.querySelector(".address").value;
   await contract2.checkDoctor(address).catch(() => {alert("Entered doctor is not available")});
     await contract1.allow(address).catch(() => {alert("Cant allow")});
+    window.setTimeout(()=>{
+      window.location.reload();
+  }, 3000)
     setModalOpen(false);
   };
   const revoking = async () => {
     const address = document.querySelector(".address").value;
     await contract2.checkDoctor(address).catch(() => {alert("Entered doctor is not available")});
     await contract1.disallow(address);
+    window.setTimeout(()=>{
+      window.location.reload();
+  }, 3000)
     setModalOpen(false);
   };
   useEffect(() => {

@@ -34,6 +34,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
           .addRecords(account, ImgHash)
           .then(() => {
             alert("Successfully Image Uploaded");
+            window.setTimeout(()=>{
+              window.location.reload();
+          }, 3000)
             setFileName("No image selected");
             setFile(null);
           })
@@ -79,6 +82,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
             .requestAccept(list[i])
             .then(() => {
               alert("Permission Granted");
+              window.setTimeout(()=>{
+                window.location.reload();
+            }, 3000)
             })
             .catch(() => {
               alert("Permission Rejected");
@@ -89,6 +95,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
             .requestReject(list[i])
             .then(() => {
               alert("Permission Rejected");
+              window.setTimeout(()=>{
+                window.location.reload();
+            }, 3000)
             })
             .catch(() => {
               alert("Permission Violated");
@@ -101,7 +110,7 @@ const Patient = ({ contract1, contract2, account, provider }) => {
       }
     };
     contract1 && requestList();
-  }, [contract1]);
+  }, [contract1, account]);
   useEffect(() => {
     const CheckPatient = async () => {
       console.log(account);
@@ -112,14 +121,14 @@ const Patient = ({ contract1, contract2, account, provider }) => {
             alert("Patient account detected");
           })
           .catch(() => {
-            alert("You don't have an account");
+            alert("You don't have an patient account");
           });
       } catch (e) {
         alert("Try registered account " + e);
       }
     };
     contract2 && CheckPatient();
-  }, [contract2]);
+  }, [contract2, account]);
   return (
     <div className="top">
       <div className="model-share">

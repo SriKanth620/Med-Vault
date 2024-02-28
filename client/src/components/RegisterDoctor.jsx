@@ -21,7 +21,8 @@ function RegisterDoctor({ contract2, account, provider }) {
                    
             }
             catch(e){
-                alert("unable to fetch hospitals, "+e);
+                alert("Unable to fetch hospitals, Create hospitals");
+                console.log(e);
             }
 
             
@@ -45,6 +46,9 @@ function RegisterDoctor({ contract2, account, provider }) {
         try{
             await contract2.registerDoctor(dname,dmobile,daddress,ddesg,hdaddress).then(()=>{
                 alert("Doctor account created")
+                window.setTimeout(()=>{
+                    window.location.reload();
+                }, 3000)
             })
             .catch((e)=>{
                 alert("Unable to create an account. Check the account\nFor more info check console ")
@@ -53,6 +57,7 @@ function RegisterDoctor({ contract2, account, provider }) {
         }
         catch(e){
             alert("Check account. Error: "+ e);
+            console.log(e);
         }
         
     }
@@ -62,7 +67,7 @@ function RegisterDoctor({ contract2, account, provider }) {
         <form onSubmit={HandleSubmit}>
             <input type="text" placeholder='Doctor Name' id="dname"/>
              <br />
-            <input type="text" placeholder='Doctor Mobile Number'id="dmobile"/>
+            <input type="number" placeholder='Doctor Mobile Number'id="dmobile"/>
             <br />
             <input type="text" placeholder='Doctor Address'id="daddress"/>
             <br />

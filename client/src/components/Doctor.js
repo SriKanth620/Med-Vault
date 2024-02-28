@@ -36,6 +36,9 @@ const Doctor = ({ contract1, contract2, account, provider }) => {
             .then(() => {
               // Success case
               alert("Successfully Image Uploaded");
+              window.setTimeout(()=>{
+                    window.location.reload();
+                }, 3000)
             })
             .catch(() => {
               // Error case
