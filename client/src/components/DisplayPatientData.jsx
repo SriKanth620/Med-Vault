@@ -6,7 +6,7 @@ const DisplayPatientData = ({ contract1, contract2, account }) => {
     let dataArray;
     // const Otheraddress = document.querySelector(".address").value;
     try {
-        dataArray = await contract1.display(account);
+      dataArray = await contract1.display(account);
     } catch (e) {
       alert("You don't have access");
     }
@@ -20,12 +20,7 @@ const DisplayPatientData = ({ contract1, contract2, account }) => {
       const images = str_array.map((item, i) => {
         return (
           <a href={item} key={i} target="_blank">
-            <img
-              key={i}
-              src={item}
-              alt="new"
-              className="image-list"
-            ></img>
+            <img key={i} src={item} alt="new" className="image-list"></img>
           </a>
         );
       });
@@ -36,8 +31,8 @@ const DisplayPatientData = ({ contract1, contract2, account }) => {
   };
   return (
     <>
-      <br/>
-      <button className="center button" onClick={getdata}>
+      <h3 className="patient">Retrieve your Records</h3>
+      <button className="upload-btn" onClick={getdata}>
         Get Your Records
       </button>
       <div className="image-list">{data}</div>

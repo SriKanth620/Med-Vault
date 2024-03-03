@@ -4,6 +4,7 @@
     "hardhat": "^2.12.4"
   },
   "dependencies": {
-    "create-react-app": "^5.0.1"
+    "create-react-app": "^5.0.1",
+    "lottie-react": "^2.4.0"
   }
 }

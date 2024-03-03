@@ -36,9 +36,9 @@ const Doctor = ({ contract1, contract2, account, provider }) => {
             .then(() => {
               // Success case
               alert("Successfully Image Uploaded");
-              window.setTimeout(()=>{
-                    window.location.reload();
-                }, 3000)
+              window.setTimeout(() => {
+                window.location.reload();
+              }, 3000);
             })
             .catch(() => {
               // Error case
@@ -111,40 +111,40 @@ const Doctor = ({ contract1, contract2, account, provider }) => {
   return (
     <div className="top">
       <h1>Welcome back Doctor</h1>
-      <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="patient-file-upload" className="choose patient">
-          Choose patient
-        </label>
-        <input type="text" id="patient-id" name="id" />
-        <label htmlFor="file-upload" className="choose">
-          Choose Image
-        </label>
-        <input
-          disabled={!account}
-          type="file"
-          id="file-upload"
-          name="data"
-          onChange={retrieveFile}
-        />
-        <span className="textArea" style={{ color: "red" }}>
-          Image: {fileName}
-        </span>
-        <button type="submit" className="upload" disabled={!file}>
-          Upload File
-        </button>
-      </form>
+      <div className="upper">
+        <form className="form upload-doc block" onSubmit={handleSubmit}>
+          <label htmlFor="patient-file-upload" className="choose patient">
+            Upload Patient Data
+          </label>
+          <input type="text" id="patient-id" name="id" />
+          <label htmlFor="file-upload" className="choose-img">
+            Choose Image
+          </label>
+          <input
+            disabled={!account}
+            type="file"
+            id="file-upload"
+            name="data"
+            onChange={retrieveFile}
+          />
+          <span className="textArea" style={{ color: "red" }}>
+            Image: {fileName}
+          </span>
+          <button type="submit" className="upload-btn" disabled={!file}>
+            Upload File
+          </button>
+        </form>
+        <form className="request-doc block" onSubmit={HandleRequestSubmit}>
+          <h3 className="patient">Request Access From Patient</h3>
+          <input type="text" className="reqDoc-input" id="patient_address" />
+          <input className="upload-btn" type="submit" />
+        </form>
+      </div>
       <Display
         contract1={contract1}
         contract2={contract2}
         account={account}
       ></Display>
-      <br />
-      <h3>Request Access From Patient</h3>
-      <form onSubmit={HandleRequestSubmit}>
-        <input type="text" id="patient_address" />
-        <input type="submit" />
-      </form>
-      <Link to="/">Home</Link>
     </div>
   );
 };

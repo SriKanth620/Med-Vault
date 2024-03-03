@@ -1,6 +1,6 @@
 import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
 import Mycontract1 from "./artifacts/contracts/Mycontract1.sol/Mycontract1.json";
-import Mycontract2 from "./artifacts/contracts/Mycontract2.sol/Mycontract2.json"
+import Mycontract2 from "./artifacts/contracts/Mycontract2.sol/Mycontract2.json";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
 import Display from "./components/Display";
@@ -17,6 +17,8 @@ import RegisterDoctor from "./components/RegisterDoctor";
 import RegisterHospital from "./components/RegisterHospital";
 import RegisterPatient from "./components/RegisterPatient";
 import ParticlesBackground from "./components/ParticlesBackground";
+import Navbar from "./components/NavBar";
+import Lottie from "lottie-react";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -34,8 +36,8 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
 
-        const contractAddress1 = "0x31BE5B233E7e396398cb1B916dD3119fe034EE85";
-        const contractAddress2 = "0xBCD8C25295428b8Bf97Ecd0355745e6Ea2E4Bfc0";
+        const contractAddress1 = "0xF93b6a8907Ecf0A67855b19ce658A4F0cA46c16a";
+        const contractAddress2 = "0xfc1B2B0CFCCE589338b50d3e2666F73c416f30c1";
 
         const contract1 = new ethers.Contract(
           contractAddress1,
@@ -63,12 +65,13 @@ function App() {
   }, []);
   return (
     <>
-      {/* <ParticlesBackground/> */}
+      {/* <ParticlesBackground /> */}
       <div className="App">
-        <h1>Med Vault</h1>
+        <Navbar account={account} />
         <p>Account : {account ? account : "Not connected"}</p>
         <div>
           <Routes>
+            <Route index element={<Home />} />
             <Route
               path="/"
               element={

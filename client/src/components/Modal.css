@@ -1,7 +1,7 @@
 .modalBackground {
   width: 500px;
   height: 350px;
-  background-color: rgba(0, 0, 0, 0.2);
+  /* background-color: rgba(0, 0, 0, 0.2); */
   position: fixed;
   display: flex;
   justify-content: center;
@@ -12,7 +12,6 @@
   width: 500px;
   height: 200px;
   border-radius: 12px;
-  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
@@ -61,7 +60,7 @@
   height: 35px;
   margin: 10px;
   border: none;
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue; */
   color: white;
   border-radius: 8px;
   font-size: 16px;
@@ -79,6 +78,6 @@
   text-align: center;
 }
 
-input[type="text"]:focus {
+/* input[type="text"]:focus {
   background-color: lightblue;
-}
+} */
