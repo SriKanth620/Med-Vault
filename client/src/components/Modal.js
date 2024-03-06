@@ -3,20 +3,26 @@ import "./Modal.css";
 const Modal = ({ setModalOpen, contract1, contract2 }) => {
   const sharing = async () => {
     const address = document.querySelector(".address").value;
-  await contract2.checkDoctor(address).catch(() => {alert("Entered doctor is not available")});
-    await contract1.allow(address).catch(() => {alert("Cant allow")});
-    window.setTimeout(()=>{
+    await contract2.checkDoctor(address).catch(() => {
+      alert("Entered doctor is not available");
+    });
+    await contract1.allow(address).catch(() => {
+      alert("Cant allow");
+    });
+    window.setTimeout(() => {
       window.location.reload();
-  }, 3000)
+    }, 3000);
     setModalOpen(false);
   };
   const revoking = async () => {
     const address = document.querySelector(".address").value;
-    await contract2.checkDoctor(address).catch(() => {alert("Entered doctor is not available")});
+    await contract2.checkDoctor(address).catch(() => {
+      alert("Entered doctor is not available");
+    });
     await contract1.disallow(address);
-    window.setTimeout(()=>{
+    window.setTimeout(() => {
       window.location.reload();
-  }, 3000)
+    }, 3000);
     setModalOpen(false);
   };
   useEffect(() => {
@@ -61,8 +67,12 @@ const Modal = ({ setModalOpen, contract1, contract2 }) => {
             >
               Cancel
             </button>
-            <button onClick={() => revoking()}>Revoke</button>
-            <button onClick={() => sharing()}>Share</button>
+            <button className="modal-btn" onClick={() => revoking()}>
+              Revoke
+            </button>
+            <button className="modal-btn" onClick={() => sharing()}>
+              Share
+            </button>
           </div>
         </div>
       </div>

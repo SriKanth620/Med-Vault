@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Display.css";
+import "../App.css";
 const Display = ({ contract1, contract2, account }) => {
   const [data, setData] = useState("");
   const getdata = async () => {
@@ -37,18 +38,18 @@ const Display = ({ contract1, contract2, account }) => {
     }
   };
   return (
-    <>
-    <br/>
+    <div className="get-doc block">
+      <h2 className="patient">Get Patients Data</h2>
       <input
         type="text"
         placeholder="Enter Address"
         className="address"
       ></input>
-      <button className="center button" onClick={getdata}>
+      <button className="upload-btn" onClick={getdata}>
         Get Patient Records
       </button>
       <div className="image-list">{data}</div>
-    </>
+    </div>
   );
 };
 export default Display;

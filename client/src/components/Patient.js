@@ -34,9 +34,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
           .addRecords(account, ImgHash)
           .then(() => {
             alert("Successfully Image Uploaded");
-            window.setTimeout(()=>{
+            window.setTimeout(() => {
               window.location.reload();
-          }, 3000)
+            }, 3000);
             setFileName("No image selected");
             setFile(null);
           })
@@ -82,9 +82,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
             .requestAccept(list[i])
             .then(() => {
               alert("Permission Granted");
-              window.setTimeout(()=>{
+              window.setTimeout(() => {
                 window.location.reload();
-            }, 3000)
+              }, 3000);
             })
             .catch(() => {
               alert("Permission Rejected");
@@ -95,9 +95,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
             .requestReject(list[i])
             .then(() => {
               alert("Permission Rejected");
-              window.setTimeout(()=>{
+              window.setTimeout(() => {
                 window.location.reload();
-            }, 3000)
+              }, 3000);
             })
             .catch(() => {
               alert("Permission Violated");
@@ -131,49 +131,52 @@ const Patient = ({ contract1, contract2, account, provider }) => {
   }, [contract2, account]);
   return (
     <div className="top">
-      <div className="model-share">
-        {!modalOpen && (
-          <button className="share" onClick={() => setModalOpen(true)}>
-            Share
-          </button>
-        )}
-        {modalOpen && (
-          <Modal
-            setModalOpen={setModalOpen}
-            contract1={contract1}
-            contract2={contract2}
-          ></Modal>
-        )}
-      </div>
       <h1>Welcome back Patient</h1>
-      <br />
-      <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="file-upload" className="choose">
-          Choose Image
-        </label>
-        <input
-          disabled={!account}
-          type="file"
-          id="file-upload"
-          name="data"
-          onChange={retrieveFile}
-        />
-        <span className="textArea" style={{ color: "red" }}>
-          Image: {fileName}
-        </span>
-        <button type="submit" className="upload" disabled={!file}>
-          Upload File
-        </button>
-      </form>
-      <DisplayPatientData
-        contract1={contract1}
-        contract2={contract2}
-        account={account}
-      ></DisplayPatientData>{" "}
-      <br />
-      <h3>Pending Request</h3>
-      <div id="Request-Container">
-        {/* <div>
+      <div className="outer-box">
+        <div className="upper patient-upper">
+          <div className="model-share block">
+            <h3 className="patient">Share your Records</h3>
+            {!modalOpen && (
+              <button
+                className="choose-img share"
+                onClick={() => setModalOpen(true)}
+              >
+                Share
+              </button>
+            )}
+            {modalOpen && (
+              <Modal
+                setModalOpen={setModalOpen}
+                contract1={contract1}
+                contract2={contract2}
+              ></Modal>
+            )}
+          </div>
+          <form className="form block patient-form" onSubmit={handleSubmit}>
+            <h3 className="patient">Upload your Records</h3>
+            <label htmlFor="file-upload" className="choose-img">
+              Choose image
+            </label>
+            <input
+              className="upload-btn"
+              disabled={!account}
+              type="file"
+              id="file-upload"
+              name="data"
+              onChange={retrieveFile}
+            />
+            <span className="textArea" style={{ color: "red" }}>
+              Image: {fileName}
+            </span>
+            <button type="submit" className="upload" disabled={!file}>
+              Upload File
+            </button>
+          </form>
+        </div>
+        <div className="pending-req">
+          <h3 className="patient">Pending Request</h3>
+          <div id="Request-Container">
+            {/* <div>
           <p>X81738173871873</p>
           <button>Accept</button>
           <button>Reject</button>
@@ -183,8 +186,14 @@ const Patient = ({ contract1, contract2, account, provider }) => {
           <button>Accept</button>
           <button>Reject</button>
         </div> */}
+          </div>
+        </div>
       </div>
-      <Link to="/">Home</Link>
+      <DisplayPatientData
+        contract1={contract1}
+        contract2={contract2}
+        account={account}
+      ></DisplayPatientData>{" "}
     </div>
   );
 };
