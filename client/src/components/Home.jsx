@@ -103,6 +103,7 @@ const Home = ({ contract1, contract2 }) => {
               href="https://www.linkedin.com/in/suhail-shaik-6351701b2/"
               className="name"
               target="_blank"
+              
             >
               <img src={suhail} alt="suhail-image" />
               <div className="name-info">
@@ -114,11 +115,12 @@ const Home = ({ contract1, contract2 }) => {
               href="https://www.linkedin.com/in/sri-kanth-45bbaa215/"
               className="name"
               target="_blank"
+              
             >
               <img src={srikanth} alt="srikanth-image" />
               <div className="name-info">
-                <h3>SriKanth U</h3>
-                <p>Final Year Computer Science and Engineering Undergrad</p>
+                <h3>SriKanth U            </h3>
+                <p>Final Year Computer Science and Engineering Undergraduate</p>
               </div>
             </a>
           </div>

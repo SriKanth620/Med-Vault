@@ -53,7 +53,7 @@ contract Mycontract2 {
     mapping(address => User1[]) public emergencyNotify;
 
     constructor() {
-        admin = 0x15Ee6e59F4225299f6d1648ac23A0502365900FD;
+        admin = 0x646067f99aE7D0b8754bDE5559652BDB54675900;
     }
 
     modifier onlyDoctor() {

@@ -93,7 +93,7 @@ function RegisterDoctor({ contract2, account, provider }) {
         <label className="patient" htmlFor="hospital list">
           Select hospital:{" "}
         </label>
-        <select name="hospital-list" id="hospital list"></select>
+        <select className="admin-form-input" name="hospital-list" id="hospital list"></select>
         <input
           className="upload-btn"
           type="submit"

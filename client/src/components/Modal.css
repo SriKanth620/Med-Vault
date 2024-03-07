@@ -1,6 +1,6 @@
 .modalBackground {
   width: 500px;
-  height: 350px;
+  height: 320px;
   /* background-color: rgba(0, 0, 0, 0.2); */
   position: fixed;
   display: flex;
@@ -10,12 +10,12 @@
 
 .modalContainer {
   width: 500px;
-  height: 200px;
+  height: 300px;
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
-  padding: 25px;
+  /* padding: 25px; */
 }
 
 .modalContainer {
