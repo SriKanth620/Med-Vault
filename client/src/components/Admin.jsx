@@ -1,8 +1,8 @@
 import React from "react";
 import { Link, Route, Routes } from "react-router-dom";
-import RegisterHospital from "./RegisterHospital";
-import RegisterDoctor from "./RegisterDoctor";
-import RegisterPatient from "./RegisterPatient";
+import RegisterHospital from "./registration/RegisterHospital";
+import RegisterDoctor from "./registration/RegisterDoctor";
+import RegisterPatient from "./registration/RegisterPatient";
 
 function Admin() {
   return (

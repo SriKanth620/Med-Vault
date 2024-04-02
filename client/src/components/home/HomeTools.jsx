@@ -1,10 +1,10 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
-import eth from "./assets/ethereum.svg";
-import hardhat from "./assets/hardhat.svg";
-import ganache from "./assets/ganache.svg";
-import metamask from "./assets/metamask.svg";
-import solidity from "./assets/solidity.svg";
+import eth from "../assets/ethereum.svg";
+import hardhat from "../assets/hardhat.svg";
+import ganache from "../assets/ganache.svg";
+import metamask from "../assets/metamask.svg";
+import solidity from "../assets/solidity.svg";
 
 const tools = [
   {

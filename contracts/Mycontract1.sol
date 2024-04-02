@@ -7,7 +7,7 @@ contract Mycontract1 {
         bool access;
     }
 
-    mapping(address => string[]) private value;
+    mapping(address => string[]) public value;
     mapping(address => mapping(address => bool)) private ownership;
     mapping(address => Access[]) private accessList;
     mapping(address => mapping(address => bool)) private previousData;
@@ -43,6 +43,10 @@ contract Mycontract1 {
 
     function display(address _user) external view returns (string[] memory) {
         require(_user == msg.sender || ownership[_user][msg.sender], "You don't have access");
+        return value[_user];
+    }
+    function displayForEmergency(address _user) public view returns (string[] memory) {
+        
         return value[_user];
     }
 

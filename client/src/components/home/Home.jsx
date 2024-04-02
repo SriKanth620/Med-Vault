@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Lottie from "lottie-react";
-import appIntro from "./assets/doc.json";
+import appIntro from "../assets/doc.json";
 import HomeFeatures from "./HomeFeatures";
 import HomeTools from "./HomeTools";
-import github from "./assets/github.svg";
-import suhail from "./assets/suhail.jpeg";
-import srikanth from "./assets/srikanth.jpeg";
+// import github from "./assets/github.svg";
+import github from "../assets/github.svg"
+import suhail from "../assets/suhail.jpeg";
+import srikanth from "../assets/srikanth.jpeg";
 
 const Home = ({ contract1, contract2 }) => {
   const [loading, setLoading] = useState(false);
@@ -120,7 +121,7 @@ const Home = ({ contract1, contract2 }) => {
               <img src={srikanth} alt="srikanth-image" />
               <div className="name-info">
                 <h3>SriKanth U            </h3>
-                <p>Final Year Computer Science and Engineering Undergraduate</p>
+                <p>Final Year Computer Science and Engineering Undergrad</p>
               </div>
             </a>
           </div>

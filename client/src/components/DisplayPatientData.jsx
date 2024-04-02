@@ -35,6 +35,7 @@ const DisplayPatientData = ({ contract1, contract2, account }) => {
       <button className="upload-btn" onClick={getdata}>
         Get Your Records
       </button>
+      <br/>
       <div className="image-list">{data}</div>
     </>
   );

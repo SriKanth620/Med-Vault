@@ -1,9 +1,9 @@
 import React from "react";
 import Lottie from "lottie-react";
-import decentralization from "./assets/decentralization.json";
-import scalable from "./assets/scalable.json";
-import userCentric from "./assets/user-centric.json";
-import easeOfUse from "./assets/ease-of-use.json";
+import decentralization from "../assets/decentralization.json";
+import scalable from "../assets/scalable.json";
+import userCentric from "../assets/user-centric.json";
+import easeOfUse from "../assets/ease-of-use.json";
 
 const items = [
   {

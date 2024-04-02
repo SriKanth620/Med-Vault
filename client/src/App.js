@@ -9,16 +9,18 @@ import "./App.css";
 import Doctor from "./components/Doctor";
 import Admin from "./components/Admin";
 import Patient from "./components/Patient";
-import Home from "./components/Home";
+import Home from "./components/home/Home.jsx";
 import About from "./components/About";
 import { formToJSON } from "axios";
 import { Routes, Route } from "react-router-dom";
-import RegisterDoctor from "./components/RegisterDoctor";
-import RegisterHospital from "./components/RegisterHospital";
-import RegisterPatient from "./components/RegisterPatient";
+import RegisterDoctor from "./components/registration/RegisterDoctor";
+import RegisterHospital from "./components/registration/RegisterHospital";
+import RegisterPatient from "./components/registration/RegisterPatient";
 import ParticlesBackground from "./components/ParticlesBackground";
 import Navbar from "./components/NavBar";
 import Lottie from "lottie-react";
+import EmergencyPortalDoctor from "./components/emergency/EmergencyPortalDoctor.jsx";
+import EmergencyPortalPatient from "./components/emergency/EmergencyPortalPatient.jsx";
 
 function App() {
   const [account, setAccount] = useState("");
@@ -36,8 +38,13 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
 
-        const contractAddress1 = "0x36Db19730584e54c8D9b89F794Cef78cCdcc6D3B";
-        const contractAddress2 = "0xCeA5C34142c417543Ec40A62F9C59bDe55cb78b3";
+        const contractAddress1 = "0x3bDF93ee6aa766D8714a8Af9ad474429F0b8eBa8";
+        const contractAddress2 = "0xD9Ac832A581371A6FfE088F85C3e7495f979D059";
+        const contract1AddressIn2 = "0x3bDF93ee6aa766D8714a8Af9ad474429F0b8eBa8";
+        // const contractAddress1 = "0xeB53683Fd9c39b2d7d72cEC00aa8A681e40d2B22";
+        // const contractAddress2 = "0x7B64a30cB20704409C403753124e8915f330FF8A";
+        // const contract1AddressIn2 = "0xeB53683Fd9c39b2d7d72cEC00aa8A681e40d2B22";
+
 
         const contract1 = new ethers.Contract(
           contractAddress1,
@@ -137,6 +144,28 @@ function App() {
                   contract2={contract2}
                   contract1={contract1}
                 ></RegisterHospital>
+              }
+            />
+            <Route
+              path="/doctor/emergency"
+              element={
+                <EmergencyPortalDoctor
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></EmergencyPortalDoctor>
+              }
+            />
+          <Route
+              path="/patient/emergency"
+              element={
+                <EmergencyPortalPatient
+                  account={account}
+                  provider={provider}
+                  contract2={contract2}
+                  contract1={contract1}
+                ></EmergencyPortalPatient>
               }
             />
           </Routes>
