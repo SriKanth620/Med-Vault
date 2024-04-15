@@ -72,7 +72,9 @@ const Patient = ({ contract1, contract2, account, provider }) => {
         let para = document.createElement("p");
         let div = document.createElement("div");
         let accept = document.createElement("button");
+        accept.classList.add("sp-btn");
         let reject = document.createElement("button");
+        reject.classList.add("sp-btn-red");
         para.textContent = list[i];
 
         accept.value = "accept";
@@ -161,56 +163,57 @@ const Patient = ({ contract1, contract2, account, provider }) => {
   }, [contract2, account]);
   return (
     <div className="top">
-      <Link to="/patient/emergency">Emergency</Link>
+      <Link className="emergency-link" to="/patient/emergency">
+        Emergency
+      </Link>
       <h1>Welcome back Patient</h1>
       <div className="outer-box">
-        <div className="upper patient-upper">
-          <div className="model-share block">
-            <h3 className="patient">Share your Records</h3>
-            {!modalOpen && (
-              <button
-                className="choose-img share"
-                onClick={() => setModalOpen(true)}
-              >
-                Share
-              </button>
-            )}
-            {modalOpen && (
-              <Modal
-                setModalOpen={setModalOpen}
-                contract1={contract1}
-                contract2={contract2}
-              ></Modal>
-            )}
-          </div>
-          <form className="form block patient-form" onSubmit={handleSubmit}>
-            <h3 className="patient">Upload your Records</h3>
-            <label htmlFor="file-upload" className="choose-img">
-              Choose image
-            </label>
-            <input
-              className="upload-btn"
-              disabled={!account}
-              type="file"
-              id="file-upload"
-              name="data"
-              onChange={retrieveFile}
-            />
-            <span className="textArea" style={{ color: "red" }}>
-              Image: {fileName}
-            </span>
-            <button type="submit" className="upload" disabled={!file}>
-              Upload File
+        <div className="model-share block">
+          <h3 className="patient">Share your Records</h3>
+          {!modalOpen && (
+            <button
+              className="choose-img share"
+              onClick={() => setModalOpen(true)}
+            >
+              Share
             </button>
-          </form>
+          )}
+          {modalOpen && (
+            <Modal
+              setModalOpen={setModalOpen}
+              contract1={contract1}
+              contract2={contract2}
+            ></Modal>
+          )}
         </div>
+        <form className="form block patient-form" onSubmit={handleSubmit}>
+          <h3 className="patient">Upload your Records</h3>
+          <label htmlFor="file-upload" className="choose-img">
+            Choose image
+          </label>
+          <input
+            className="upload-btn"
+            disabled={!account}
+            type="file"
+            id="file-upload"
+            name="data"
+            onChange={retrieveFile}
+          />
+          <span className="textArea" style={{ color: "red" }}>
+            Image: {fileName}
+          </span>
+          <button type="submit" className="upload" disabled={!file}>
+            Upload File
+          </button>
+        </form>
+
         <div className="pending-req">
           <h3 className="patient">Pending Request</h3>
           <div id="Request-Container"></div>
           {/* <div id="EmergencyNotify-Container"></div> */}
         </div>
-        <h3 className="patient">Emergency Notifications</h3>
         <div id="EmergencyNotify-Container">
+          <h3 className="patient">Emergency Notifications</h3>
           {notifications.map((notification, index) => (
             <div key={index} className="emergency-notification">
               <p>
@@ -219,7 +222,10 @@ const Patient = ({ contract1, contract2, account, provider }) => {
               <p>Mobile: {notification.mobile}</p>
               <p>Address: {notification.account}</p>
               <li>See emergency portal for more info</li>
-              <button onClick={() => handleIgnore(notification.account)}>
+              <button
+                className="sp-btn"
+                onClick={() => handleIgnore(notification.account)}
+              >
                 Ignore
               </button>
             </div>

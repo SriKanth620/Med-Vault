@@ -112,7 +112,9 @@ const Doctor = ({ contract1, contract2, account, provider }) => {
   }, [contract2]);
   return (
     <div className="top">
-      <Link to="/doctor/emergency">Emergency</Link>
+      <Link className="emergency-link" to="/doctor/emergency">
+        Emergency
+      </Link>
       <h1>Welcome back Doctor</h1>
       <div className="upper">
         <form className="form upload-doc block" onSubmit={handleSubmit}>
