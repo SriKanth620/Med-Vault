@@ -38,13 +38,14 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
 
-        const contractAddress1 = "0x3bDF93ee6aa766D8714a8Af9ad474429F0b8eBa8";
-        const contractAddress2 = "0xD9Ac832A581371A6FfE088F85C3e7495f979D059";
-        const contract1AddressIn2 = "0x3bDF93ee6aa766D8714a8Af9ad474429F0b8eBa8";
-        // const contractAddress1 = "0xeB53683Fd9c39b2d7d72cEC00aa8A681e40d2B22";
-        // const contractAddress2 = "0x7B64a30cB20704409C403753124e8915f330FF8A";
-        // const contract1AddressIn2 = "0xeB53683Fd9c39b2d7d72cEC00aa8A681e40d2B22";
+        // const contractAddress1 = "0x3bDF93ee6aa766D8714a8Af9ad474429F0b8eBa8";
+        // const contractAddress2 = "0xD9Ac832A581371A6FfE088F85C3e7495f979D059";
+        // const contract1AddressIn2 = "0x3bDF93ee6aa766D8714a8Af9ad474429F0b8eBa8";
 
+        const contractAddress1 = "0x8726DC0502747f917ab189e97E0fb853d023C0E6";
+        const contractAddress2 = "0x5ca12F898C7327E88EdF62ff4E2308b88C28648e";
+        const contract1AddressIn2 =
+          "0x8726DC0502747f917ab189e97E0fb853d023C0E6";
 
         const contract1 = new ethers.Contract(
           contractAddress1,
@@ -157,7 +158,7 @@ function App() {
                 ></EmergencyPortalDoctor>
               }
             />
-          <Route
+            <Route
               path="/patient/emergency"
               element={
                 <EmergencyPortalPatient

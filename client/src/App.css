@@ -407,8 +407,8 @@ span {
   border-radius: 15px;
   position: fixed;
   display: flex;
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 }
 
 .modalContainer {
@@ -446,9 +446,15 @@ span {
   cursor: pointer;
 }
 
+/* patient grid */
+
 .outer-box {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
+  align-items: center; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
   align-items: center;
   width: 90vw;
 }
@@ -471,8 +477,9 @@ span {
   padding: 1rem;
   border-radius: 15px;
   border: 2px solid #faef5d;
-  width: 20vw;
-  height: 45vh;
+  /* width: 20vw; */
+  gap: 2rem;
+  height: auto;
 }
 
 .admin {
@@ -622,7 +629,8 @@ emergency portal css bro */
   border-collapse: collapse;
 }
 
-.patient-table th, .patient-table td {
+.patient-table th,
+.patient-table td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
@@ -714,7 +722,7 @@ emergency portal css bro */
 
 .info {
   font-size: 1.2rem;
-  color:#03740e;
+  color: #03740e;
 }
 
 .instruction {
@@ -733,7 +741,8 @@ emergency portal css bro */
   margin-top: 20px;
 }
 
-th, td {
+th,
+td {
   border: 1px solid #ddd;
   padding: 12px;
   text-align: left;
@@ -776,10 +785,92 @@ tr:hover {
   color: white;
 }
 
-.loading, .error {
+.loading,
+.error {
   text-align: center;
   margin-top: 20px;
   font-weight: bold;
 }
 
 /* end of patient emergency portal */
+
+/* 3rd review - zeuz */
+
+.sp-btn {
+  margin: 1rem 0rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  outline: none;
+  color: white;
+  border: 1px solid #faef5d;
+  background-color: #000;
+}
+
+.sp-btn:hover {
+  color: #faef5d;
+  border: 2px solid #faef5d;
+}
+
+.sp-btn-red {
+  margin: 1rem 1rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  outline: none;
+  color: white;
+  border: 1px solid #ff004d;
+  background-color: #000;
+}
+
+.sp-btn-red:hover {
+  color: #ff004d;
+  border: 2px solid #ff004d;
+}
+
+.emergency-link {
+  position: absolute;
+  top: 15%;
+  right: 5%;
+  font-size: 1rem;
+  color: white;
+  padding: 1rem;
+  border: 1px solid #faef5d;
+  box-shadow: 2.5px 2.5px #faef5d;
+  transition: all 150ms ease-in-out;
+}
+
+.emergency-link:hover {
+  box-shadow: 7.5px 7.5px #ff004d;
+  border: 1px solid #faef5d;
+  border-radius: 10px;
+}
+
+.intro-emergency > h1 {
+  color: #faef5d;
+}
+
+.admin-info {
+  color: #faef5d;
+  text-align: justify;
+  width: 50%;
+  list-style: circle;
+}
+
+.admin-info > li {
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+.admin > h2,
+.admin > h3 {
+  color: #faef5d;
+}
+
+.admin-res-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.admin-animation {
+  width: 30%;
+}
